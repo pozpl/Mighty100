@@ -39,7 +39,7 @@ void init_word_layer(GRect bounds) {
 
 void init_time_layer(GRect bounds) {
     // Create the TextLayer with specific bounds
-    time_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 50));
+    time_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(58, 52), bounds.size.w, 40));
     text_layer_set_background_color(time_layer, GColorBlack);
     text_layer_set_text_color(time_layer, GColorWhite);
     text_layer_set_text(time_layer, "00:00");
@@ -49,12 +49,13 @@ void init_time_layer(GRect bounds) {
 
 void init_translations_layer(GRect bounds){
     translation_layer = text_layer_create(
-            GRect(0, PBL_IF_ROUND_ELSE(108, 102), bounds.size.w, 30));
+            GRect(0, PBL_IF_ROUND_ELSE(108, 102), bounds.size.w, 45));
     text_layer_set_background_color(translation_layer, GColorBlack);
     text_layer_set_text_color(translation_layer, GColorWhite);
-    text_layer_set_text(translation_layer, "translation");
+    text_layer_set_text(translation_layer, "translation,translation,translation");
     text_layer_set_font(translation_layer, dict_font);
     text_layer_set_text_alignment(translation_layer, GTextAlignmentCenter);
+    text_layer_set_overflow_mode(translation_layer, GTextOverflowModeWordWrap);
 }
 
 static void window_load(Window *window) {
@@ -92,15 +93,15 @@ static void init(void) {
     });
     
     window_set_background_color(window, GColorClear);
-//
+
 //    // Show the Window on the watch, with animated=true
     window_stack_push(window, true);
-//
-//    // Make sure the time is displayed from the start
-//    update_time();
-//
-//    // Register with TickTimerService
-//    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+
+    // Make sure the time is displayed from the start
+    update_time();
+
+    // Register with TickTimerService
+    tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 }
 
 static void deinit(void) {
