@@ -19,8 +19,9 @@ void init_words_index() {
         resource_load(handle, (uint8_t *) words_index, res_size);
     }
 
-    
+    APP_LOG(APP_LOG_LEVEL_INFO, "WORDS INDEX SIZE IN BYTES %d ",  res_size);
     current_index = get_last_stored_index();
+    APP_LOG(APP_LOG_LEVEL_INFO, "STORED LAST CURRENT INDEX %d ",  current_index);
     
 }
 
@@ -74,19 +75,24 @@ void print_word_and_translation(uint16_t index, TextLayer *s_word_text_layer, Te
     uint16_t begin_translation = words_index[real_index + 2];
     uint16_t end_translation = (words_index[real_index + 3] + 1);
 
-    APP_LOG(APP_LOG_LEVEL_INFO, "WORDS INDEXCES %d %d  %d %d", begin_word, end_word, begin_translation, end_translation);
+//    APP_LOG(APP_LOG_LEVEL_INFO, "WORDS INDEXCES %d %d  %d %d", begin_word, end_word, begin_translation, end_translation);
 
-    uint8_t* word_buffer = (uint8_t *) malloc(end_word - begin_word);
+    uint8_t* word_buffer = (uint8_t *) malloc(end_word - begin_word + 1);
 
     ResHandle words_resource_handle = resource_get_handle(RESOURCE_ID_FR_ENG_FILE);
     resource_load_byte_range(words_resource_handle, begin_word, word_buffer, end_word - begin_word);
-
+    
+    word_buffer[end_word - begin_word] = 0;
     text_layer_set_text(s_word_text_layer, (char*) word_buffer);
 
-    uint8_t* translation_buffer = (uint8_t *) malloc(end_translation - begin_translation);
+    uint8_t* translation_buffer = (uint8_t *) malloc(end_translation - begin_translation + 1);
     resource_load_byte_range(words_resource_handle, begin_translation, translation_buffer, end_translation - begin_translation);
-
+    translation_buffer[end_translation - begin_translation] = 0;
+    
     text_layer_set_text(s_translation_text_layer, (char*) translation_buffer);
+    
+//    APP_LOG(APP_LOG_LEVEL_INFO, "WORD %s TRANSLATION %s ", word_buffer, translation_buffer);
+    
 
     free(word_buffer);
     free(translation_buffer);
