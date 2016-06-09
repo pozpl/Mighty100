@@ -1,4 +1,5 @@
 #include <pebble.h>
+#include "modules/words_dictionary.h"
 
 static Window *window;
 static TextLayer *word_layer;
@@ -19,13 +20,18 @@ static void update_time() {
             "%H:%M" : "%I:%M", tick_time);
 
     // Display this time on the TextLayer
-    text_layer_set_text(time_layer, s_buffer);
-
-    
+    text_layer_set_text(time_layer, s_buffer);    
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
+    
+    // update word and translation every hour for a start
+//    if (tick_time->tm_min == 0) {
+//        print_next_word_and_translation(word_layer, translation_layer);
+//    }
+    print_next_word_and_translation(word_layer, translation_layer);
+    
 }
 
 void init_word_layer(GRect bounds) {
@@ -91,6 +97,8 @@ static void init(void) {
         .load = window_load,
         .unload = window_unload,
     });
+    init_words_index();
+    
     
     window_set_background_color(window, GColorClear);
 
@@ -106,6 +114,7 @@ static void init(void) {
 
 static void deinit(void) {
     window_destroy(window);
+    deinit_words_index();
 }
 
 int main(void) {
