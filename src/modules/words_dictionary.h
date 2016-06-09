@@ -7,6 +7,8 @@
 
 #pragma once
 #include <pebble.h> 
+#include "storage_keys_constants.h"
+
 
 typedef struct {
     uint8_t *word;
