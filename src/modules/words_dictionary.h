@@ -16,7 +16,7 @@ typedef struct {
 } WordWithTranslation;
 
 void init_words_index();
-void deinit_words_index();
+//void deinit_words_index();
 uint16_t count_words();
 
 void print_word_and_translation(uint16_t index, TextLayer *s_word_text_layer, 

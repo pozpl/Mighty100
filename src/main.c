@@ -193,7 +193,7 @@ static void init(void) {
 
 static void deinit(void) {
     window_destroy(window);
-    deinit_words_index();
+//    deinit_words_index();
     
     tick_timer_service_unsubscribe();
     battery_state_service_unsubscribe();
