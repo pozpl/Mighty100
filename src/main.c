@@ -23,6 +23,11 @@ static void handle_battery(BatteryChargeState charge_state) {
 
 static void handle_bluetooth(bool connected) {
     text_layer_set_text(s_connection_layer, connected ? "" : "disconnected");
+    
+    if(!connected) {
+        // Issue a vibrating alert
+        vibes_double_pulse();
+    }
 }
 
 static void update_time() {
