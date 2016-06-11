@@ -7,6 +7,7 @@ static TextLayer *time_layer;
 static TextLayer *translation_layer;
 static TextLayer *s_battery_layer;
 static TextLayer *s_connection_layer;
+static TextLayer *date_layer;
 
 static GFont dict_font;
 
@@ -16,7 +17,7 @@ static void handle_battery(BatteryChargeState charge_state) {
     if (charge_state.is_charging) {
         snprintf(battery_text, sizeof (battery_text), "charging");
     } else {
-        snprintf(battery_text, sizeof (battery_text), "%d%% ", charge_state.charge_percent);
+        snprintf(battery_text, sizeof (battery_text), " %d%% ", charge_state.charge_percent);
     }
     text_layer_set_text(s_battery_layer, battery_text);
 }
@@ -42,6 +43,11 @@ static void update_time() {
 
     // Display this time on the TextLayer
     text_layer_set_text(time_layer, s_buffer);
+    
+//    Display date 
+    static char date_buffer[16];
+    strftime(date_buffer, sizeof (date_buffer), "%a %d %b", tick_time);
+    text_layer_set_text(date_layer, date_buffer);
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
@@ -77,7 +83,7 @@ void init_time_layer(GRect bounds) {
 
 void init_translations_layer(GRect bounds) {
     translation_layer = text_layer_create(
-            GRect(0, PBL_IF_ROUND_ELSE(108, 102), bounds.size.w, 66));
+            GRect(0, PBL_IF_ROUND_ELSE(108, 102), bounds.size.w, 56));
     text_layer_set_background_color(translation_layer, GColorBlack);
     text_layer_set_text_color(translation_layer, GColorWhite);
     text_layer_set_text(translation_layer, "translation,translation,translation");
@@ -105,6 +111,15 @@ void init_bluetooth_level(GRect bounds) {
 
 }
 
+void init_date_level(GRect bounds) {
+    date_layer = text_layer_create(GRect(0, 156, bounds.size.w, 12));
+    text_layer_set_text_color(date_layer, GColorWhite);
+    text_layer_set_background_color(date_layer, GColorBlack);
+    text_layer_set_text_alignment(date_layer, GTextAlignmentCenter);
+    text_layer_set_font(date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
+
+}
+
 static void window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
@@ -116,12 +131,14 @@ static void window_load(Window *window) {
     init_translations_layer(bounds);
     init_battery_level(bounds);
     init_bluetooth_level(bounds);
+    init_date_level(bounds);
     
     layer_add_child(window_layer, text_layer_get_layer(word_layer));
     layer_add_child(window_layer, text_layer_get_layer(time_layer));
     layer_add_child(window_layer, text_layer_get_layer(translation_layer));
     layer_add_child(window_layer, text_layer_get_layer(s_battery_layer));
     layer_add_child(window_layer, text_layer_get_layer(s_connection_layer));
+    layer_add_child(window_layer, text_layer_get_layer(date_layer));
     
     handle_battery(battery_state_service_peek());
     handle_bluetooth(connection_service_peek_pebble_app_connection());
@@ -138,6 +155,7 @@ static void window_unload(Window *window) {
     text_layer_destroy(translation_layer);
     text_layer_destroy(s_battery_layer);
     text_layer_destroy(s_connection_layer);
+    text_layer_destroy(date_layer);
   
 }
 
