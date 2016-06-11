@@ -48,9 +48,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
 
     // update word and translation every hour for a start
-    //    if (tick_time->tm_min == 0) {
-    //        print_next_word_and_translation(word_layer, translation_layer);
-    //    }
+//        if (tick_time->tm_min % 5 == 0) {
+//            print_next_word_and_translation(word_layer, translation_layer);
+//        }
 //    APP_LOG(APP_LOG_LEVEL_INFO, "TICK HANDLER MINUTE %d ", tick_time->tm_min);
     print_next_word_and_translation(word_layer, translation_layer);
 
@@ -125,6 +125,7 @@ static void window_load(Window *window) {
     
     handle_battery(battery_state_service_peek());
     handle_bluetooth(connection_service_peek_pebble_app_connection());
+    print_next_word_and_translation(word_layer, translation_layer);
 }
 
 static void window_unload(Window *window) {
