@@ -33,7 +33,7 @@
         },
         {
           "type": "raw",
-          "name": "INDEX_DATA_FILE",
+          "name": "INDEX_SP_ENG_100",
           "file": "raw/se_100_idx"
         }
       ]
