@@ -25,6 +25,16 @@
           "type": "raw",
           "name": "INDEX_DATA_FILE",
           "file": "raw/fe_idx"
+        },
+        {
+          "type": "raw",
+          "name": "SP_ENG_100_FILE",
+          "file": "raw/spanish_eng_words_0_100"
+        },
+        {
+          "type": "raw",
+          "name": "INDEX_DATA_FILE",
+          "file": "raw/se_100_idx"
         }
       ]
     },
