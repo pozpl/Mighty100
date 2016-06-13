@@ -62,8 +62,32 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
 }
 
+void init_battery_level(GRect bounds) {
+    s_battery_layer = text_layer_create(GRect(0, 0, PBL_IF_RECT_ELSE(40, bounds.size.w), PBL_IF_RECT_ELSE(22,10)));
+    text_layer_set_text_color(s_battery_layer, GColorWhite);
+    text_layer_set_background_color(s_battery_layer, GColorBlack);
+    text_layer_set_font(s_battery_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
+    #if defined(PBL_ROUND)
+        text_layer_set_text_alignment(s_battery_layer, GTextAlignmentCenter);
+    #endif
+
+    text_layer_set_text(s_battery_layer, "100%      ");
+}
+
+void init_bluetooth_level(GRect bounds) {
+    s_connection_layer = text_layer_create(GRect(PBL_IF_RECT_ELSE(40, 0), PBL_IF_RECT_ELSE(0,10), bounds.size.w, PBL_IF_RECT_ELSE(22,18)));
+    text_layer_set_text_color(s_connection_layer, GColorWhite);
+    text_layer_set_background_color(s_connection_layer, GColorBlack);
+    text_layer_set_font(s_connection_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
+    #if defined(PBL_ROUND)
+        text_layer_set_text_alignment(s_connection_layer, GTextAlignmentCenter);
+    #endif
+    handle_bluetooth(bluetooth_connection_service_peek());
+
+}
+
 void init_word_layer(GRect bounds) {
-    word_layer = text_layer_create(GRect(0, 22, bounds.size.w, 30));
+    word_layer = text_layer_create(GRect(0, PBL_IF_RECT_ELSE(22, 28), bounds.size.w, 30));
     text_layer_set_background_color(word_layer, GColorBlack);
     text_layer_set_text_color(word_layer, GColorWhite);
     text_layer_set_text(word_layer, "word");
@@ -83,7 +107,7 @@ void init_time_layer(GRect bounds) {
 
 void init_translations_layer(GRect bounds) {
     translation_layer = text_layer_create(
-            GRect(0, PBL_IF_ROUND_ELSE(108, 102), bounds.size.w, 56));
+            GRect(0, PBL_IF_RECT_ELSE(102, 108), bounds.size.w, PBL_IF_RECT_ELSE(54, 50)));
     text_layer_set_background_color(translation_layer, GColorBlack);
     text_layer_set_text_color(translation_layer, GColorWhite);
     text_layer_set_text(translation_layer, "translation,translation,translation");
@@ -92,37 +116,21 @@ void init_translations_layer(GRect bounds) {
     text_layer_set_overflow_mode(translation_layer, GTextOverflowModeWordWrap);
 }
 
-void init_battery_level(GRect bounds) {
-    s_battery_layer = text_layer_create(GRect(0, 0, 40, 22));
-    text_layer_set_text_color(s_battery_layer, GColorWhite);
-    text_layer_set_background_color(s_battery_layer, GColorBlack);
-    text_layer_set_font(s_battery_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
-//    text_layer_set_text_alignment(s_battery_layer, GTextAlignmentCenter);
-    text_layer_set_text(s_battery_layer, "100%      ");
-}
-
-void init_bluetooth_level(GRect bounds) {
-    s_connection_layer = text_layer_create(GRect(40, 0, bounds.size.w, 22));
-    text_layer_set_text_color(s_connection_layer, GColorWhite);
-    text_layer_set_background_color(s_connection_layer, GColorBlack);
-    text_layer_set_font(s_connection_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
-//    text_layer_set_text_alignment(s_connection_layer, GTextAlignmentCenter);
-    handle_bluetooth(bluetooth_connection_service_peek());
-
-}
-
 void init_date_level(GRect bounds) {
-    date_layer = text_layer_create(GRect(0, 156, bounds.size.w, 12));
+    date_layer = text_layer_create(GRect(0, PBL_IF_RECT_ELSE(156,158), bounds.size.w, PBL_IF_RECT_ELSE(12, 22)));
     text_layer_set_text_color(date_layer, GColorWhite);
     text_layer_set_background_color(date_layer, GColorBlack);
     text_layer_set_text_alignment(date_layer, GTextAlignmentCenter);
-    text_layer_set_font(date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_09));
+    text_layer_set_font(date_layer, fonts_get_system_font(PBL_IF_RECT_ELSE(FONT_KEY_GOTHIC_09, FONT_KEY_GOTHIC_14)));
 
 }
 
 static void window_load(Window *window) {
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
+    
+    //window_set_background_color(window, GColorBlack);
+
 
     dict_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_OPEN_SANS_20));
 
