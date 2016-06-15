@@ -1,61 +1,63 @@
 {
-  "version": "1.0.0",
-  "author": "pozpl",
-  "private": true,
-  "dependencies": {},
-  "keywords": [
-    "pebble-app"
-  ],
-  "pebble": {
-    "sdkVersion": "3",
-    "resources": {
-      "media": [
-        {
-          "type": "font",
-          "name": "OPEN_SANS_20",
-          "file": "fonts/open_sans.ttf",
-          "compatibility": "2.7"
-        },
-        {
-          "type": "raw",
-          "name": "FR_ENG_FILE",
-          "file": "raw/french_eng_words"
-        },
-        {
-          "type": "raw",
-          "name": "INDEX_DATA_FILE",
-          "file": "raw/fe_idx"
-        },
-        {
-          "type": "raw",
-          "name": "SP_ENG_100_FILE",
-          "file": "raw/spanish_eng_words_0_100"
-        },
-        {
-          "type": "raw",
-          "name": "INDEX_SP_ENG_100",
-          "file": "raw/se_100_idx"
-        }
-      ]
-    },
-    "projectType": "native",
-    "uuid": "36d6eea7-5a39-47d5-a38c-bee7ddba5550",
-    "messageKeys": {
-      "dummy": 0
-    },
-    "enableMultiJS": true,
-    "displayName": "mighty100",
-    "watchapp": {
-      "onlyShownOnCommunication": false,
-      "hiddenApp": false,
-      "watchface": true
-    },
-    "targetPlatforms": [
-      "aplite",
-      "basalt",
-      "chalk"
+    "version": "1.0.0",
+    "author": "pozpl",
+    "private": true,
+    "dependencies": {},
+    "keywords": [
+        "pebble-app"
     ],
-    "capabilities": []
-  },
-  "name": "mighty100"
+    "pebble": {
+        "sdkVersion": "3",
+        "resources": {
+            "media": [
+                {
+                    "type": "font",
+                    "name": "OPEN_SANS_20",
+                    "file": "fonts/open_sans.ttf",
+                    "compatibility": "2.7"
+                },
+                {
+                    "type": "raw",
+                    "name": "FR_ENG_FILE",
+                    "file": "raw/french_eng_words"
+                },
+                {
+                    "type": "raw",
+                    "name": "INDEX_DATA_FILE",
+                    "file": "raw/fe_idx"
+                },
+                {
+                    "type": "raw",
+                    "name": "SP_ENG_100_FILE",
+                    "file": "raw/spanish_eng_words_0_100"
+                },
+                {
+                    "type": "raw",
+                    "name": "INDEX_SP_ENG_100",
+                    "file": "raw/se_100_idx"
+                }
+            ]
+        },
+        "projectType": "native",
+        "uuid": "36d6eea7-5a39-47d5-a38c-bee7ddba5550",
+        "messageKeys": [
+            "DICTIONARY"
+        ],
+        "enableMultiJS": true,
+        "displayName": "mighty100",
+        "watchapp": {
+            "onlyShownOnCommunication": false,
+            "hiddenApp": false,
+            "watchface": true
+        },
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "capabilities": [
+            "configurable"
+        ]
+    },
+    "name": "mighty100"
 }
