@@ -167,6 +167,14 @@ static void window_unload(Window *window) {
   
 }
 
+static void inbox_received_handler(DictionaryIterator *iter, void *context) {
+  Tuple *language_dict_t = dict_find(iter, MESSAGE_KEY_DICTIONARY);
+  if(language_dict_t && language_dict_t->value->int32 ) {  // Read boolean as an integer
+      set_dictionnary((uint16_t) language_dict_t->value->int32);
+      print_next_word_and_translation(word_layer, translation_layer);
+  }
+}
+
 static void init(void) {
     window = window_create();
 
@@ -197,6 +205,11 @@ static void init(void) {
     connection_service_subscribe((ConnectionHandlers) {
         .pebble_app_connection_handler = handle_bluetooth
     });
+    
+    app_message_register_inbox_received(inbox_received_handler);
+    const int inbox_size = 128;
+    const int outbox_size = 128;
+    app_message_open(inbox_size, outbox_size);
 }
 
 static void deinit(void) {
