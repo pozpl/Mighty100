@@ -15,6 +15,8 @@ typedef struct {
     uint8_t *translation;
 } WordWithTranslation;
 
+void set_dictionnary(uint16_t dictinnary_index);
+
 void init_words_index();
 //void deinit_words_index();
 uint16_t count_words();
