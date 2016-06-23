@@ -45,3 +45,4 @@ sub processFile($$){
 
 processFile("resources/raw/french_eng_words", 'resources/raw/fe_idx');
 processFile('resources/raw/spanish_eng_words_0_100','resources/raw/se_100_idx');
+processFile('resources/raw/port_eng_words_1_100','resources/raw/pe_100_idx');
