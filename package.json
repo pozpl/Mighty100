@@ -35,6 +35,16 @@
                     "type": "raw",
                     "name": "INDEX_SP_ENG_100",
                     "file": "raw/se_100_idx"
+                },
+                {
+                    "type": "raw",
+                    "name": "PORT_ENG_100_FILE",
+                    "file": "raw/port_eng_words_1_100"
+                },
+                {
+                    "type": "raw",
+                    "name": "INDEX_PORT_ENG_100",
+                    "file": "raw/pe_100_idx"
                 }
             ]
         },
