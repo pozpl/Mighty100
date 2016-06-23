@@ -28,6 +28,8 @@ ResHandle get_index_handler_for_current_dict(uint16_t dictionnary_index) {
         handle = resource_get_handle(RESOURCE_ID_INDEX_DATA_FILE);
     } else  if(dictionnary_index == DICTIONARY_SPANISH_ENG_100_DICT_ID){
         handle = resource_get_handle(RESOURCE_ID_INDEX_SP_ENG_100);
+    }else  if(dictionnary_index == DICTIONARY_PORTUGUESE_ENG_100_DICT_ID){
+        handle = resource_get_handle(RESOURCE_ID_INDEX_PORT_ENG_100);   
     }else{
         handle = resource_get_handle(RESOURCE_ID_INDEX_DATA_FILE);
     }
@@ -41,7 +43,9 @@ ResHandle get_dictionary_handler_for_current_dict(uint16_t dictionnary_index) {
         handle = resource_get_handle(RESOURCE_ID_FR_ENG_FILE);
     } else  if(dictionnary_index == DICTIONARY_SPANISH_ENG_100_DICT_ID){
         handle = resource_get_handle(RESOURCE_ID_SP_ENG_100_FILE);
-    }else{
+    }else  if(dictionnary_index == DICTIONARY_PORTUGUESE_ENG_100_DICT_ID){
+        handle = resource_get_handle(RESOURCE_ID_PORT_ENG_100_FILE);
+    } else{
         handle = resource_get_handle(RESOURCE_ID_FR_ENG_FILE);
     }
 
