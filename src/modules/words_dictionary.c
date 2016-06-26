@@ -107,18 +107,18 @@ void store_last_current_index(uint16_t current_index) {
     persist_write_int(CURRENT_WORD_INDEX_KEY, (int) current_index);
 }
 
-void print_next_word_and_translation(TextLayer *s_word_text_layer, TextLayer *s_translation_text_layer) {
+void print_next_word_and_translation(TextLayer *word_text_layer, TextLayer *translation_text_layer) {
 
     if (current_index > count_words() - 1) {
         current_index = 0;
     }
 
     store_last_current_index(current_index);
-    print_word_and_translation(current_index, s_word_text_layer, s_translation_text_layer);
+    print_word_and_translation(current_index, word_text_layer, translation_text_layer);
     current_index++;
 }
 
-void print_word_and_translation(uint16_t index, TextLayer *s_word_text_layer, TextLayer *s_translation_text_layer) {
+void print_word_and_translation(uint16_t index, TextLayer *word_text_layer, TextLayer *translation_text_layer) {
 
     // Get resource handle
     ResHandle index_handle = get_index_handler_for_current_dict(dictionnary_index); //resource_get_handle(RESOURCE_ID_INDEX_DATA_FILE);
@@ -144,13 +144,13 @@ void print_word_and_translation(uint16_t index, TextLayer *s_word_text_layer, Te
         resource_load_byte_range(words_resource_handle, begin_word, word_buffer, end_word - begin_word);
 
         word_buffer[end_word - begin_word] = 0;
-        text_layer_set_text(s_word_text_layer, (char*) word_buffer);
+        text_layer_set_text(word_text_layer, (char*) word_buffer);
 
         uint8_t* translation_buffer = (uint8_t *) malloc(end_translation - begin_translation + 1);
         resource_load_byte_range(words_resource_handle, begin_translation, translation_buffer, end_translation - begin_translation);
         translation_buffer[end_translation - begin_translation] = 0;
 
-        text_layer_set_text(s_translation_text_layer, (char*) translation_buffer);
+        text_layer_set_text(translation_text_layer, (char*) translation_buffer);
 
         //    APP_LOG(APP_LOG_LEVEL_INFO, "WORD %s TRANSLATION %s ", word_buffer, translation_buffer);
 
