@@ -43,27 +43,15 @@ int get_step_average() {
   return step_average;
 }
 
-int health_handler(HealthEventType event, void *context) {
-  if(event == HealthEventSignificantUpdate) {
-    s_step_goal = get_step_goal();
-  }
-
-  if(event != HealthEventSleepUpdate) {
-    s_step_count = get_step_count();
-    s_step_average = get_step_average();
-    display_step_count();
-  }
-}
-
 void display_step_count() {
   int thousands = s_step_count / 1000;
   int hundreds = s_step_count % 1000;
   static char s_emoji[5];
 
   if(s_step_count >= s_step_average) {
-    snprintf(s_emoji, sizeof(s_emoji), "\U0001F60C");
+    snprintf(s_emoji, sizeof(s_emoji), "\U0001F44D");
   } else {
-    snprintf(s_emoji, sizeof(s_emoji), "\U0001F4A9");
+    snprintf(s_emoji, sizeof(s_emoji), "\U0001F44E");
   }
 
   if(thousands > 0) {
@@ -77,7 +65,20 @@ void display_step_count() {
   text_layer_set_text(s_step_layer, s_current_steps_buffer);
 }
 
-void init_health(static TextLayer *step_layer){
+
+void health_handler(HealthEventType event, void *context) {
+  if(event == HealthEventSignificantUpdate) {
+    s_step_goal = get_step_goal();
+  }
+
+  if(event != HealthEventSleepUpdate) {
+    s_step_count = get_step_count();
+    s_step_average = get_step_average();
+    display_step_count();
+  }
+}
+
+void init_health(TextLayer *step_layer){
     if(step_data_is_available()){
         s_step_layer = step_layer;
         
