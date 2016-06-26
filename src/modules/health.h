@@ -9,5 +9,5 @@
 #include <pebble.h> 
 #include "storage_keys_constants.h"
 
-void init_health(static TextLayer *step_layer);
+void init_health(TextLayer *step_layer);
 void deinit_health();
