@@ -79,12 +79,16 @@ void health_handler(HealthEventType event, void *context) {
 }
 
 void init_health(TextLayer *step_layer){
+#ifdef PBL_HEALTH
     if(step_data_is_available()){
         s_step_layer = step_layer;
         
         health_service_events_subscribe(health_handler, NULL);
         display_step_count();
     }
+#endif
+    
+    
 }
 
 void deinit_health(){
