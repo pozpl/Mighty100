@@ -80,7 +80,7 @@ void init_bluetooth_level(GRect bounds) {
 #ifdef PBL_ROUND
     s_connection_layer = text_layer_create(GRect( 0,  10, bounds.size.w,  18));
 #else
-    s_connection_layer = text_layer_create(GRect(40, 0, bounds.size.w, 22));
+    s_connection_layer = text_layer_create(GRect(40, 0, bounds.size.w - 40, 22));
 #endif
     text_layer_set_text_color(s_connection_layer, GColorWhite);
     text_layer_set_background_color(s_connection_layer, GColorBlack);
