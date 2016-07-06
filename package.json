@@ -66,7 +66,7 @@
             "chalk"
         ],
         "capabilities": [
-            "configurable"
+            "configurable", "health"
         ]
     },
     "name": "mighty100"
